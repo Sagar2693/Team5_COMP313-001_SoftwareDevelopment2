@@ -1,0 +1,70 @@
+<resources>
+    <string name="app_name">Grounds For Thoughts</string>
+    <string name="title"> Grounds For Thoughts</string>
+    <string name="enter_button">ENTER</string>
+    <string name="enter_button_desc">Enter Button</string>
+    <string name="cuisine">Book Library</string>
+    <string name="mexican_cuisine">Mexican</string>
+    <string name="indian_cuisine">Indian</string>
+    <string name="italian_cuisine">Italian</string>
+    <string name="selected_cusine_button">Proceed</string>
+
+    <string-array name="Title_Indian">
+        <item>Scifi</item>;
+        <item>Horror</item>;
+        <item>Romance</item>;
+        <item>Biography</item>;
+        <item>Drama</item>;
+
+    </string-array>
+    <string-array name="Desc_Indian">
+        <item>Science Fiction</item>;
+        <item>Supernatural Stories</item>;
+        <item>Love Stories</item>;
+        <item>Life of a person</item>;
+        <item>Fiction represented in Performance.</item>;
+
+    </string-array>
+
+
+    <string-array name="Indian_Res1">
+        <item>Morningstar by Pierce Brown</item>;
+        <item>Star Wars Catalyst by James Luceno</item>;
+        <item>Sleeping Giants by Sylvain Neuvel</item>;
+    </string-array>
+
+    <string-array name="Indian_Res2">
+        <item>My best friend Excorsism by Grady Hendrix</item>;
+        <item>The City of Mirrors by Justin Cronin</item>;
+        <item>LoveCraft Country by Matt Ruff</item>;
+    </string-array>
+
+    <string-array name="Indian_Res3">
+        <item>Hard Rules by Lisa Renee Jones</item>;
+        <item>Duke of My Heart by Kelly Bowen</item>;
+        <item>All they Ever Wanted by Mackenzie Crowne</item>;
+    </string-array>
+
+    <string-array name="Indian_Res4">
+        <item>I m Malala by Christina Lamb</item>;
+        <item>Steve Jobs by Walter Isaacson</item>;
+        <item>Audacity of Hope by Barack Obama</item>;
+    </string-array>
+
+    <string-array name="Indian_Res5">
+        <item>Book 1</item>;
+        <item>Book 2</item>;
+        <item>Book 3</item>;
+    </string-array>
+
+
+    <string name="selected_item_button">Proceed</string>
+    <string name="cus_name">Full Name:</string>
+    <string name="cus_address">Address:</string>
+    <string name="items_ordered">Items Ordered:</string>
+    <string name="pay">Pay</string>
+    <string name="Credit_Card_Number">Credit Card Number</string>
+    <string name="date">Date</string>
+    <string name="CCV">CCV</string>
+    <string name="title_activity_google_maps">Map</string>
+</resources>
