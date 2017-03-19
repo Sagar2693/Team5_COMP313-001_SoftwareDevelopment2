@@ -30,10 +30,10 @@ public class MainActivity extends AppCompatActivity {
                 String val =(String) adapterView.getItemAtPosition(position);
                 Log.v("MainActivity"," is .................." + val);
 
-                /*Intent t = new Intent(MainActivity.this,RecycleView.class);
+                Intent t = new Intent(MainActivity.this,Book_list.class);
 
                 t.putExtra("category_selected",val);
-                startActivity(t);*/
+                startActivity(t);
             }
         });
 

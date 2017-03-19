@@ -15,8 +15,6 @@ import com.squareup.picasso.Picasso;
 
 public class bookListViewHolder extends RecyclerView.ViewHolder{
 
-
-
     View mView;
     public bookListViewHolder(View gridView){
 
@@ -27,30 +25,30 @@ public class bookListViewHolder extends RecyclerView.ViewHolder{
 
     public void setTitle(String title){
 
-       /* TextView txt_bookName = (TextView)mView.findViewById(R.id.txt_bookName);
-        txt_bookName.setText(title);*/
+       TextView txt_bookName = (TextView)mView.findViewById(R.id.book_name);
+        txt_bookName.setText(title);
     }
 
     public void setAuthor(String author)
     {
-      /*  TextView txt_authorName = (TextView)mView.findViewById(R.id.txt_authorName);
+       TextView txt_authorName = (TextView)mView.findViewById(R.id.author_name);
         txt_authorName.setText(author);
-*/
+
     }
 
     public void setImage(Context ctx, String image){
 
-        /*ImageView bookImage = (ImageView)mView.findViewById(R.id.imageView_book);
-        Picasso.with(ctx).load(image).into(bookImage);*/
+        ImageView bookImage = (ImageView)mView.findViewById(R.id.imageView);
+        Picasso.with(ctx).load(image).into(bookImage);
 
     }
 
     public void setRating(Integer rating)
     {
-        /*RatingBar ratings = (RatingBar)mView.findViewById(R.id.ratingBar);
+        RatingBar ratings = (RatingBar)mView.findViewById(R.id.ratingBar1);
 
         ratings.setRating(rating);
-*/
+
     }
 
 }
