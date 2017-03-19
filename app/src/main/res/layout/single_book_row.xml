@@ -2,8 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1">
+    android:layout_height="wrap_content"
+    android:weightSum="1"
+    android:layout_margin="5dp"
+    android:background="@color/cardview_dark_background">
 
     <ImageView
         android:layout_width="match_parent"
@@ -13,7 +15,8 @@
         android:layout_weight="0.15"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
-        android:cropToPadding="false" />
+        android:cropToPadding="false"
+        android:layout_margin="5dp" />
 
     <TextView
         android:text="TextView"
@@ -37,5 +40,5 @@
         android:numStars="5"
         android:scaleX="0.5"
         android:scaleY="0.5"
-        android:layout_weight="0.15" />
+        android:layout_weight="0.05" />
 </LinearLayout>

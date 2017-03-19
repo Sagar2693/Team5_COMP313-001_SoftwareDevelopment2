@@ -26,11 +26,12 @@ public class Book_list extends AppCompatActivity
 
 
 
-            int numberOfcol =6;
+            int numberOfcol =3;
+        int nu;
 
             recyclerView = (RecyclerView)findViewById(R.id.rv_view1);
             recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new GridLayoutManager(this,numberOfcol));
+            recyclerView.setLayoutManager(new GridLayoutManager(this,numberOfcol,GridLayoutManager.VERTICAL,true));
 
 
 
