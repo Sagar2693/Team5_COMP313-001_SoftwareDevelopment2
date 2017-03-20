@@ -1,5 +1,7 @@
 package com.example.firebase.bookstore;
 
+import android.content.ClipData;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,6 +18,10 @@ public class Book_list extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+
+        Intent t = getIntent();
+        String category = t.getStringExtra("category_selected");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_list);
         RecyclerView recyclerView;
@@ -31,7 +37,8 @@ public class Book_list extends AppCompatActivity
 
             recyclerView = (RecyclerView)findViewById(R.id.rv_view1);
             recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new GridLayoutManager(this,numberOfcol,GridLayoutManager.VERTICAL,true));
+         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,numberOfcol,GridLayoutManager.VERTICAL,true);
+            recyclerView.setLayoutManager(gridLayoutManager);
 
 
 
@@ -40,9 +47,10 @@ public class Book_list extends AppCompatActivity
             FirebaseRecyclerAdapter<book,bookListViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<book, bookListViewHolder>(                  book.class,
                     R.layout.single_book_row,
                     bookListViewHolder.class,
-                    BookRef
+                    BookRef.orderByChild("category").equalTo(category)
 
             ) {
+
                 @Override
                 protected void populateViewHolder(bookListViewHolder viewHolder, book model, int position) {
 
@@ -51,10 +59,12 @@ public class Book_list extends AppCompatActivity
                     viewHolder.setImage(getApplicationContext(),model.getImage());
                     viewHolder.setRating(model.getRating());
 
+
                 }
             };
 
-            recyclerView.setAdapter(firebaseRecyclerAdapter );
+            recyclerView.setAdapter(firebaseRecyclerAdapter);
+
 
 
 
