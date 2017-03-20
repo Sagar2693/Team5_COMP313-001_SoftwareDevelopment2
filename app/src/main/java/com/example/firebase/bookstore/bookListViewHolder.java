@@ -31,8 +31,8 @@ public class bookListViewHolder extends RecyclerView.ViewHolder{
 
     public void setAuthor(String author)
     {
-       TextView txt_authorName = (TextView)mView.findViewById(R.id.author_name);
-        txt_authorName.setText(author);
+       //TextView txt_authorName = (TextView)mView.findViewById(R.id.author_name);
+       // txt_authorName.setText(author);
 
     }
 
@@ -45,9 +45,9 @@ public class bookListViewHolder extends RecyclerView.ViewHolder{
 
     public void setRating(Integer rating)
     {
-        RatingBar ratings = (RatingBar)mView.findViewById(R.id.ratingBar1);
+       // RatingBar ratings = (RatingBar)mView.findViewById(R.id.ratingBar1);
 
-        ratings.setRating(rating);
+      //  ratings.setRating(rating);
 
     }
 

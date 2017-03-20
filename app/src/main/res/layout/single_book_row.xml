@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:weightSum="1"
     android:layout_margin="5dp"
-    android:background="@color/cardview_dark_background">
+    android:background="@color/colorPrimaryDark"
+    android:padding="5dp">
 
     <ImageView
         android:layout_width="match_parent"
@@ -15,30 +16,34 @@
         android:layout_weight="0.15"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
-        android:cropToPadding="false"
-        android:layout_margin="5dp" />
+        android:layout_margin="0dp" />
 
     <TextView
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/book_name"
-        android:layout_weight="0.15"
-        android:textStyle="bold|italic" />
+        android:layout_weight="0"
+        android:autoText="false"
+        android:foregroundGravity="center_vertical|center_horizontal|center"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:textStyle="normal|italic" />
 
-    <TextView
+   <!-- <TextView
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/author_name"
         android:layout_weight="0.15" />
-
-    <RatingBar
+-->
+    <!--<RatingBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/ratingBar1"
         android:numStars="5"
         android:scaleX="0.5"
         android:scaleY="0.5"
-        android:layout_weight="0.05" />
+        android:layout_weight="0.05" />-->
 </LinearLayout>
