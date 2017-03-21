@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -38,7 +37,7 @@ public class bookListViewHolder extends RecyclerView.ViewHolder{
 
     public void setImage(Context ctx, String image){
 
-        ImageView bookImage = (ImageView)mView.findViewById(R.id.imageView);
+        ImageView bookImage = (ImageView)mView.findViewById(R.id.imgView_detail);
         Picasso.with(ctx).load(image).into(bookImage);
 
     }

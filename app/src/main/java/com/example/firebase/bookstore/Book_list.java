@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -14,7 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Book_list extends AppCompatActivity
 {
-
+    DatabaseReference myRootRef = FirebaseDatabase.getInstance().getReference();
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -27,13 +28,12 @@ public class Book_list extends AppCompatActivity
         RecyclerView recyclerView;
    ;
 
-        DatabaseReference myRootRef = FirebaseDatabase.getInstance().getReference();
+
         DatabaseReference BookRef = myRootRef.child("Books");
 
 
 
             int numberOfcol =3;
-        int nu;
 
             recyclerView = (RecyclerView)findViewById(R.id.rv_view1);
             recyclerView.setHasFixedSize(true);
@@ -52,12 +52,24 @@ public class Book_list extends AppCompatActivity
             ) {
 
                 @Override
-                protected void populateViewHolder(bookListViewHolder viewHolder, book model, int position) {
+                protected void populateViewHolder(bookListViewHolder viewHolder, final book model, int position) {
+                   final String bookId = getRef(position).getKey();
 
                     viewHolder.setTitle(model.getTitle());
                     viewHolder.setAuthor(model.getAuthor());
                     viewHolder.setImage(getApplicationContext(),model.getImage());
                     viewHolder.setRating(model.getRating());
+
+                    viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Log.v("author"," is .................." + bookId);
+                            Intent i = new Intent(Book_list.this,book_description.class);
+                            i.putExtra("Selected_book",bookId);
+                            startActivity(i);
+
+                        }
+                    });
 
 
                 }

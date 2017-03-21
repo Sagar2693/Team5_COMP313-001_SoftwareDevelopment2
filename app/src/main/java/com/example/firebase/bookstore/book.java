@@ -11,7 +11,7 @@ public class book {
     String category;
     String image;
     String desc;
-    Integer price;
+    Double price;
     Integer rating;
 
 
@@ -19,7 +19,7 @@ public class book {
     }
 
 
-    public book( String title, String author, String category, String image,String desc, Integer rating,Integer price) {
+    public book( String title, String author, String category, String image,String desc, Integer rating,Double price) {
 
         this.title = title;
         this.author = author;
@@ -46,7 +46,7 @@ public class book {
 
     public String getDesc() {  return desc;}
 
-    public Integer getPrice() { return price; }
+    public Double getPrice() { return price; }
 
     public String getCategory() {
         return category;
