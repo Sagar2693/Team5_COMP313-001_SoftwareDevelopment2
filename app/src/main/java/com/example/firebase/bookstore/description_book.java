@@ -28,7 +28,7 @@ public class description_book extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_description);
+        setContentView(R.layout.activity_description_book);
         Intent t = getIntent();
         String bookID = t.getStringExtra("Selected_book");
 

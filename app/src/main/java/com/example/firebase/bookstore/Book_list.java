@@ -63,8 +63,8 @@ public class Book_list extends AppCompatActivity
                     viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Log.v("author"," is .................." + bookId);
-                            Intent i = new Intent(Book_list.this,book_description.class);
+                           // Log.v("author"," is .................." + bookId);
+                            Intent i = new Intent(Book_list.this,description_book.class);
                             i.putExtra("Selected_book",bookId);
                             startActivity(i);
 
