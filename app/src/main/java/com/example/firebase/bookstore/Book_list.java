@@ -2,19 +2,27 @@ package com.example.firebase.bookstore;
 
 import android.content.ClipData;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Book_list extends AppCompatActivity
-{
+public class Book_list extends AppCompatActivity{
+    DrawerLayout mDrawerlayout;
+    ActionBarDrawerToggle mToggle;
+    NavigationView navigationView;
+
     DatabaseReference myRootRef = FirebaseDatabase.getInstance().getReference();
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -26,7 +34,47 @@ public class Book_list extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_list);
         RecyclerView recyclerView;
-   ;
+
+        mDrawerlayout = (DrawerLayout)findViewById(R.id.drawerLayout);
+        mToggle = new ActionBarDrawerToggle(this,mDrawerlayout,R.string.open,R.string.close);
+
+        mDrawerlayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        navigationView =(NavigationView)findViewById(R.id.navgation_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id  = item.getItemId();
+                switch (id) {
+                    case R.id.nav_signOut:
+
+                        // userAuth.signOut();
+
+                        break;
+                    case R.id.nav_home:
+                        Intent i = new Intent(Book_list.this,MainActivity.class);
+                        startActivity(i);
+                        break;
+
+                    case R.id.nav_viewCart:
+                        Intent v = new Intent(Book_list.this,viewCart_activity.class);
+                        startActivity(v);
+                        break;
+
+                    case R.id.nav_contact:
+                        Intent c = new Intent(Book_list.this,contact_us_activity.class);
+                        startActivity(c);
+                        break;
+                }
+                return false;
+            }
+        });
+
+
+
 
 
         DatabaseReference BookRef = myRootRef.child("Books");
@@ -81,6 +129,16 @@ public class Book_list extends AppCompatActivity
 
 
         }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(mToggle.onOptionsItemSelected(item)){
+
+            return  true;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="150dp"
+    android:background="@android:color/holo_red_light">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/user"
+        android:layout_marginTop="8dp"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        android:text="User Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:id="@+id/txt_UserName" />
+
+    <TextView
+        android:text="Email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_UserName"
+        android:layout_alignStart="@+id/txt_UserName"
+        android:layout_marginTop="6dp"
+        android:id="@+id/txt_email_nav" />
+</RelativeLayout>
