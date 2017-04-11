@@ -11,18 +11,6 @@
     android:layout_height="fill_parent" >
 
 
-    <ImageView
-        android:id="@+id/imgView_book"
-        android:layout_width="500px"
-        android:layout_height="700px"
-        app:srcCompat="@mipmap/ic_launcher"
-        android:layout_marginTop="23dp"
-        android:layout_marginStart="27dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/btn_addtocart"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop" />
-
     <TextView
         android:id="@+id/txt_price"
         android:layout_width="match_parent"
@@ -68,8 +56,8 @@
     <RatingBar
         android:layout_height="wrap_content"
         android:id="@+id/ratingBar_1"
-        android:scaleX="0.5"
-        android:scaleY="0.5"
+        android:scaleX="0.3"
+        android:scaleY="0.3"
         android:numStars="5"
         style="@style/Widget.AppCompat.RatingBar"
         android:layout_width="wrap_content"
@@ -82,9 +70,9 @@
         android:layout_height="wrap_content"
         android:text="Description"
         android:textStyle="bold|italic"
-        android:layout_below="@+id/ratingBar_1"
-        android:layout_alignStart="@+id/btn_addtocart"
-        android:layout_marginStart="8dp" />
+        android:layout_alignBottom="@+id/ratingBar_1"
+        android:layout_marginStart="5dp"
+        android:elevation="9dp" />
 
     <TextView
         android:text="multiline description"
@@ -95,7 +83,8 @@
         android:lines="15"
         android:layout_alignBottom="@+id/btn_addtocart"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="9dp" />
+        android:layout_marginBottom="9dp"
+        android:layout_marginStart="5dp" />
 
     <Button
         android:id="@+id/btn_addtocart"
@@ -107,16 +96,21 @@
         android:layout_marginStart="61dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:background="@color/common_google_signin_btn_text_dark_disabled" />
+        android:background="@color/common_google_signin_btn_text_dark_disabled"
+        android:elegantTextHeight="true"
+        android:elevation="12dp"
+        style="@style/Widget.AppCompat.Button.Borderless" />
 
-    <Button
-        android:id="@+id/btn_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancel"
-        android:layout_alignBaseline="@+id/btn_addtocart"
-        android:layout_alignBottom="@+id/btn_addtocart"
-        android:layout_toEndOf="@+id/imgView_book" />
+    <ImageView
+        android:id="@+id/imgView_book"
+        android:layout_width="500px"
+        android:layout_height="700px"
+        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_marginTop="21dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/btn_addtocart" />
 
 
 </RelativeLayout>

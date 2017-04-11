@@ -9,9 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,6 +28,11 @@ public class description_book extends AppCompatActivity {
     DrawerLayout mDrawerlayout;
     ActionBarDrawerToggle mToggle;
     NavigationView navigationView;
+    Button add_to_cart;
+
+   // CART newItem = new CART();
+
+    static String  cartItem = "//";
 
     ImageView imageView ;
     RatingBar ratingBar;
@@ -33,14 +41,49 @@ public class description_book extends AppCompatActivity {
     TextView txt_BookTitle;
     TextView txt_multiLine;
     TextView txt_category;
+    book selectedBook = new book();
     DatabaseReference myRootRef = FirebaseDatabase.getInstance().getReference();
+    public static String[] separeted ;
+    static long numOfChild;
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_description_book);
         Intent t = getIntent();
-        String bookID = t.getStringExtra("Selected_book");
+        final String bookID = t.getStringExtra("Selected_book");
+        final DatabaseReference cartRef = myRootRef.child("CART");
+        ValueEventListener valueEventListener = cartRef.orderByChild("user3").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
+                if(dataSnapshot.hasChild("user3"))
+                {
+                    //cartRef.child("user3").setValue(bookID);
+                    cartItem = dataSnapshot.child("user3").getValue().toString();
+                }
+
+                else
+                {
+                    Toast.makeText(description_book.this,"No item in Cart",Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+
+            }
+
+        });
+
+
+        //final String bookID = t.getStringExtra("Selected_book");
+        add_to_cart = (Button)findViewById(R.id.btn_addtocart);
         mDrawerlayout = (DrawerLayout)findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerlayout,R.string.open,R.string.close);
 
@@ -91,11 +134,12 @@ public class description_book extends AppCompatActivity {
         txt_category = (TextView)findViewById(R.id.txt_category);
 
 
-        selectedBookRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        selectedBookRef.addListenerForSingleValueEvent(new ValueEventListener()
+        {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                book selectedBook = dataSnapshot.getValue(book.class);
+              selectedBook = dataSnapshot.getValue(book.class);
                 //Log.v("author"," is .................." + selectedBook.getAuthor());
 
                 Picasso.with(getApplicationContext()).load(selectedBook.getImage()).into(imageView);
@@ -115,9 +159,48 @@ public class description_book extends AppCompatActivity {
             }
         });
 
+        add_to_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+           //     final DatabaseReference cartRef = myRootRef.child("CART");
+                ValueEventListener valueEventListener = cartRef.orderByChild("user3").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
+                       /* if(!dataSnapshot.hasChild("user3"))
+                        {
+                            //cartRef.child("user3").setValue(bookID);
+                            numOfChild = dataSnapshot.getChildrenCount();
+                            cartRef.child("user3").child("Title"+numOfChild + 1).setValue(selectedBook.getTitle());
+
+                        }*/
+                        numOfChild = dataSnapshot.getChildrenCount();
+                        cartRef.child("user5").child(bookID.toString()).setValue(selectedBook.getTitle());
+
+                        /*else {
+                            cartItem = dataSnapshot.child("user3").getValue().toString();
+                        }*/
+
+
+
+                    }
+
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+
+                    }
+
+                });
+
+
+               // String upCart = String.valueOf(cartItem) + String.valueOf(bookID);
+               // additems("user3" ,upCart);
+              ;
+            }
+        });
         //========================Code end here=====================================
-
     }
 
     @Override
@@ -130,6 +213,28 @@ public class description_book extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+   /* public void additems(final String user, final String InCart) {
+        DatabaseReference cartRef = myRootRef.child("CART");
 
+        String cartup =  String.valueOf(InCart) + "//";
+
+        long i = numOfChild + 1;
+
+        cartRef.child(user).child("Title"+i).setValue(selectedBook.getTitle());
+
+       // cartRef.child(user).setValue(cartup);
+
+        Toast.makeText(description_book.this,"Book added To Cart",Toast.LENGTH_LONG).show();
+
+
+        separeted = cartup.split("//");
+
+        for (String x : separeted) {
+            Log.i("x   " , x);
+        }
+
+
+
+    }*/
 
 }

@@ -83,7 +83,7 @@ public class Book_list extends AppCompatActivity{
 
             int numberOfcol =3;
 
-            recyclerView = (RecyclerView)findViewById(R.id.rv_view1);
+            recyclerView = (RecyclerView)findViewById(R.id.cart_rv_view);
             recyclerView.setHasFixedSize(true);
          GridLayoutManager gridLayoutManager = new GridLayoutManager(this,numberOfcol,GridLayoutManager.VERTICAL,true);
             recyclerView.setLayoutManager(gridLayoutManager);

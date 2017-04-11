@@ -20,7 +20,8 @@
         <activity android:name=".Book_list" />
         <activity android:name=".description_book" />
         <activity android:name=".viewCart_activity" />
-        <activity android:name=".contact_us_activity"></activity>
+        <activity android:name=".contact_us_activity" />
+        <activity android:name=".payment"></activity>
     </application>
 
 </manifest>

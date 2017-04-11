@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            app:srcCompat="@drawable/book"
+            android:id="@+id/cart_bimage"
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:layout_margin="5dp"
+            android:layout_weight="0.15"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"/>
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/cart_bimage"
+            android:layout_toEndOf="@+id/cart_bimage"
+            android:layout_marginTop="5dp"
+            android:id="@+id/cart_btitle"
+            android:textStyle="normal|bold"
+            android:textSize="24sp" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cart_btitle"
+            android:layout_toEndOf="@+id/cart_bimage"
+            android:id="@+id/cart_bdesc"
+            android:layout_alignBottom="@+id/cart_bimage"
+            android:textStyle="normal|bold|italic"
+            android:textSize="16sp"
+            android:textAlignment="viewStart"
+            android:layout_margin="5dp" />
+    </RelativeLayout>
+</LinearLayout>

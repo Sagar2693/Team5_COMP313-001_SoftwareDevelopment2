@@ -15,6 +15,51 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.firebase.bookstore.viewCart_activity">
 
+    <ListView
+        android:layout_width="match_parent"
+        android:id="@+id/cart_listview"
+        android:clickable="true"
+        android:contextClickable="true"
+        android:choiceMode="multipleChoice"
+        android:layout_height="450dp"
+        android:scrollbars="horizontal|vertical"
+        android:fadingEdge="none|horizontal|vertical"
+        android:theme="@style/Widget.AppCompat.ListMenuView"
+        android:animateLayoutChanges="false"
+        android:animationCache="false"
+        android:fastScrollAlwaysVisible="false"
+        android:fastScrollEnabled="false"
+        android:fitsSystemWindows="false"
+        android:smoothScrollbar="true"
+        android:textDirection="ltr"
+        android:headerDividersEnabled="true"
+        android:footerDividersEnabled="true"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/checkout" />
+
+    <Button
+        android:text="Checkout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkout"
+        android:fadingEdge="horizontal|vertical"
+        android:layout_alignWithParentIfMissing="true"
+        android:textSize="18sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:text="Delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/checkout"
+        android:layout_toEndOf="@+id/checkout"
+        android:layout_marginStart="66dp"
+        android:id="@+id/cart_delete"
+        android:textSize="18sp" />
+
 </RelativeLayout>
 
     <android.support.design.widget.NavigationView
