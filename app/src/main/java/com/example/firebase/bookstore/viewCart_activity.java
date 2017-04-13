@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,8 +53,13 @@ public class viewCart_activity extends AppCompatActivity {
     String[] Titles;
     String[] Description;
     ListView listview;
+    FirebaseAuth userAuth ;
    static String[] separeted;
-  //  book select1 = new book();
+    TextView username;
+    TextView email_nav;
+    String UserId;
+    DatabaseReference userRef ;
+
 ArrayList<String> list = new ArrayList<>();
     ArrayList<String> ID = new ArrayList<>();
     ArrayList<String> del = new ArrayList<>();
@@ -84,6 +90,10 @@ ArrayList<String> list = new ArrayList<>();
       //  t_price=(TextView)findViewById(R.id.totalprice);
 
 
+        navigationView =(NavigationView)findViewById(R.id.navgation_view);
+        View header = navigationView.getHeaderView(0);
+        username=(TextView)header.findViewById(R.id.txt_UserName);
+        email_nav=(TextView)header.findViewById(R.id.txt_email_nav);
 
 
 
@@ -125,14 +135,38 @@ ArrayList<String> list = new ArrayList<>();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        navigationView = (NavigationView) findViewById(R.id.navgation_view);
+        //passing the values to navigation header
+        userAuth = FirebaseAuth.getInstance();
+
+        UserId = userAuth.getCurrentUser().getUid();
+
+        userRef =myRootRef.child("Users").child(UserId);
+
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                user loggedUser = dataSnapshot.getValue(user.class);
+
+                username.setText(loggedUser.getName());
+                email_nav.setText(loggedUser.getEmail());
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 switch (id) {
                     case R.id.nav_signOut:
-                        // userAuth.signOut();
+                         userAuth.signOut();
                         break;
 
                     case R.id.nav_home:

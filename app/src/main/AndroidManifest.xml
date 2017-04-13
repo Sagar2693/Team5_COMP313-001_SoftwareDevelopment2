@@ -21,7 +21,10 @@
         <activity android:name=".description_book" />
         <activity android:name=".viewCart_activity" />
         <activity android:name=".contact_us_activity" />
-        <activity android:name=".payment"></activity>
+        <activity android:name=".payment" />
+        <activity android:name=".Register_activity" />
+        <activity android:name=".login_activity" />
+        <activity android:name=".resetpassword_activity"></activity>
     </application>
 
 </manifest>

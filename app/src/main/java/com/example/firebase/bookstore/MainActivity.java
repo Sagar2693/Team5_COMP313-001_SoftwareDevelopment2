@@ -13,19 +13,41 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     DrawerLayout mDrawerlayout;
     ActionBarDrawerToggle mToggle;
     NavigationView navigationView;
+    String UserId;
+    TextView username;
+    TextView email_nav;
 
     String[] category = {"Action","Comedy","Drama","Fiction","Horror","Mystery","Romance"};
     ListView list;
+
+    DatabaseReference userRef ;
+    DatabaseReference myRootRef = FirebaseDatabase.getInstance().getReference();
+    FirebaseAuth userAuth ;
+    FirebaseAuth.AuthStateListener authListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        navigationView =(NavigationView)findViewById(R.id.navgation_view);
+        View header = navigationView.getHeaderView(0);
+
+        username=(TextView)header.findViewById(R.id.txt_UserName);
+        email_nav=(TextView)header.findViewById(R.id.txt_email_nav);
 
         mDrawerlayout = (DrawerLayout)findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerlayout,R.string.open,R.string.close);
@@ -35,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        navigationView =(NavigationView)findViewById(R.id.navgation_view);
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -43,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (id) {
                     case R.id.nav_signOut:
 
-                       // userAuth.signOut();
+                        userAuth.signOut();
 
                         break;
                     case R.id.nav_home:
@@ -66,6 +88,48 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        userAuth = FirebaseAuth.getInstance();
+        DatabaseReference BookRef = myRootRef.child("Books");
+        BookRef.keepSynced(true);
+
+        authListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                if(firebaseAuth.getCurrentUser()==null){ //if user is not logged in
+
+                    Intent loginLogin = new Intent(MainActivity.this,login_activity.class);
+                    loginLogin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(loginLogin);
+
+                }
+                else
+                {
+                    UserId = userAuth.getCurrentUser().getUid();
+                    // Log.v("User ID"," is .................." + UserId);
+                    userRef =myRootRef.child("Users").child(UserId);
+
+                    userRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            user loggedUser = dataSnapshot.getValue(user.class);
+
+                            username.setText(loggedUser.getName());
+                            email_nav.setText(loggedUser.getEmail());
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+        };
+
+        userAuth.addAuthStateListener(authListener);
 
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, category);
