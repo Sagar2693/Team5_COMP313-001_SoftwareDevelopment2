@@ -71,14 +71,14 @@
         android:text="Already a member"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="145dp"
+        android:layout_marginStart="122dp"
         android:layout_marginBottom="15dp"
         android:id="@+id/txt_alreadyMember"
         android:fontFamily="cursive"
         android:clickable="true"
         android:textStyle="normal|bold"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

@@ -21,12 +21,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/category_txt"
         android:text="Choose Category" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/category_txt"
-        android:text="usernametxt"
-        android:id="@+id/username_txt" />
 
     <ListView
         android:layout_width="match_parent"

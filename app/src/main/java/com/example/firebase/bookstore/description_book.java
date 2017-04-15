@@ -49,6 +49,7 @@ public class description_book extends AppCompatActivity {
 
     book selectedBook = new book();
     FirebaseAuth userAuth ;
+
     DatabaseReference myRootRef = FirebaseDatabase.getInstance().getReference();
     public static String[] separeted ;
     static long numOfChild;
@@ -202,7 +203,7 @@ public class description_book extends AppCompatActivity {
             @Override
             public void onClick(View view) {
            //     final DatabaseReference cartRef = myRootRef.child("CART");
-                ValueEventListener valueEventListener = cartRef.orderByChild("user3").addValueEventListener(new ValueEventListener() {
+                cartRef.orderByChild(UserId).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -214,7 +215,7 @@ public class description_book extends AppCompatActivity {
 
                         }*/
                         numOfChild = dataSnapshot.getChildrenCount();
-                        cartRef.child("user5").child(bookID.toString()).setValue(selectedBook.getTitle());
+                        cartRef.child(UserId).child(bookID.toString()).setValue(selectedBook.getTitle());
 
                         /*else {
                             cartItem = dataSnapshot.child("user3").getValue().toString();

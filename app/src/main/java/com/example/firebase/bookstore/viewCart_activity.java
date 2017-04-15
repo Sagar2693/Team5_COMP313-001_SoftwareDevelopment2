@@ -75,7 +75,7 @@ ArrayList<String> list = new ArrayList<>();
    public static String cartItem = "//" ;
 
   DatabaseReference selectedBookRef = myRootRef.child("Books");
-    DatabaseReference cartRef = myRootRef.child("CART").child("user5");
+
 
 //    viewCart_activity x = new viewCart_activity();
     @Override
@@ -95,8 +95,26 @@ ArrayList<String> list = new ArrayList<>();
         username=(TextView)header.findViewById(R.id.txt_UserName);
         email_nav=(TextView)header.findViewById(R.id.txt_email_nav);
 
+        //passing the values to navigation header
+        userAuth = FirebaseAuth.getInstance();
+        UserId = userAuth.getCurrentUser().getUid();
+        userRef =myRootRef.child("Users").child(UserId);
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                user loggedUser = dataSnapshot.getValue(user.class);
 
+                username.setText(loggedUser.getName());
+                email_nav.setText(loggedUser.getEmail());
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference cartRef = myRootRef.child("Cart").child(UserId); //("User5")
         cartRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -135,32 +153,8 @@ ArrayList<String> list = new ArrayList<>();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //passing the values to navigation header
-        userAuth = FirebaseAuth.getInstance();
 
-        UserId = userAuth.getCurrentUser().getUid();
-
-        userRef =myRootRef.child("Users").child(UserId);
-
-        userRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                user loggedUser = dataSnapshot.getValue(user.class);
-
-                username.setText(loggedUser.getName());
-                email_nav.setText(loggedUser.getEmail());
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+       navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
