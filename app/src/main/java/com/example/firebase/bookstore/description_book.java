@@ -200,33 +200,17 @@ public class description_book extends AppCompatActivity {
             @Override
             public void onClick(View view) {
            //     final DatabaseReference cartRef = myRootRef.child("CART");
-                cartRef.orderByChild(UserId).addValueEventListener(new ValueEventListener() {
+                cartRef.orderByChild(UserId).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                       /* if(!dataSnapshot.hasChild("user3"))
-                        {
-                            //cartRef.child("user3").setValue(bookID);
-                            numOfChild = dataSnapshot.getChildrenCount();
-                            cartRef.child("user3").child("Title"+numOfChild + 1).setValue(selectedBook.getTitle());
-
-                        }*/
                         numOfChild = dataSnapshot.getChildrenCount();
                         cartRef.child(UserId).child(bookID).setValue(selectedBook.getTitle());
-
-                        /*else {
-                            cartItem = dataSnapshot.child("user3").getValue().toString();
-                        }*/
-
-
-
                         Toast.makeText(description_book.this, "Book Added to the cart", Toast.LENGTH_SHORT).show();
 
+                   }
 
-                    }
-
-
-                    @Override
+                   @Override
                     public void onCancelled(DatabaseError databaseError) {
 
 

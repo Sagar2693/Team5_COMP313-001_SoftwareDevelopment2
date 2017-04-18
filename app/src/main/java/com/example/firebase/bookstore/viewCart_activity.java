@@ -116,31 +116,36 @@ ArrayList<String> list = new ArrayList<>();
             }
         });
 
-        DatabaseReference cartRef = myRootRef.child("CART").child(UserId); //("User5")
+       final DatabaseReference cartRef = myRootRef.child("CART").child(UserId); //("User5")
         cartRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getKey().toString().equals(UserId)) {
+                if (dataSnapshot.exists())
+                {
                     Log.i("Going In....", dataSnapshot.getKey().toString());
+
                     //   Log.i("Value In....",dataSnapshot.getValue().toString());
 
                     Map<String, String> data = (Map<String, String>) dataSnapshot.getValue();
 
 
-                    for (Map.Entry<String, String> entry : data.entrySet()) {
 
-                        ID.add(entry.getKey());
-                        Log.i("KEY........", entry.getKey());
-                        Log.i("VALUE.........", entry.getValue());
+                        for (Map.Entry<String, String> entry : data.entrySet()) {
 
-                    }
-                    for (String x : ID) {
-                        Log.i("ID.........", x);
-                    }
-                    //  Log.i("VALUE OF STRING IN KEY" , val);
+                            ID.add(entry.getKey());
+                            Log.i("KEY........", entry.getKey());
+                            Log.i("VALUE.........", entry.getValue());
 
-                    int i = displayCart(ID);
-                } else {
+                        }
+                        for (String x : ID) {
+                            Log.i("ID.........", x);
+                        }
+                        //  Log.i("VALUE OF STRING IN KEY" , val);
+
+                        int i = displayCart(ID);
+
+                }
+                else {
                     Toast.makeText(viewCart_activity.this, "Cart Empty", Toast.LENGTH_LONG).show();
                 }
 
@@ -219,33 +224,31 @@ ArrayList<String> list = new ArrayList<>();
                         Log.i("TEMP.....", temp);
 
 
-                        //.append("\n" + String.valueOf(list.getItemAtPosition(i)));
+
                     }
                 }
 
                 for (String x : del) {
 
                     Log.i("cd........", x);
-                }
-                //DatabaseReference samref = myRootRef.child("SampleData").child("user5");
 
-               /* Query applesQuery = cartRef.orderByChild("_id40");
 
-                applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-                            appleSnapshot.getRef().removeValue();
+                    Query applesQuery = cartRef.child(x);
+
+                    applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                           dataSnapshot.getRef().removeValue();
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.e("VALLKD", "onCancelled", databaseError.toException());
-                    }
-                });*/
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.e("VALLKD", "onCancelled", databaseError.toException());
+                        }
+                    });
+                }
 
-                // Log.i("REF..xxxxxxxx...",ref );
+               // Log.i("REF..xxxxxxxx...",ref );
                 finish();
                 startActivity(getIntent());
 
