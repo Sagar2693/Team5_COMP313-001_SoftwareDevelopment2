@@ -212,22 +212,13 @@ ArrayList<String> list = new ArrayList<>();
 
                 SparseBooleanArray selected = listview.getCheckedItemPositions();
                 int len = listview.getCount();
-
-
                 for (int i = 0; i < len; i++) {
-
                     if (selected.get(i)) {
                         String temp = listview.getItemAtPosition(i).toString();
-
                         del.add(ID.get(i).toString());
-
                         Log.i("TEMP.....", temp);
-
-
-
                     }
                 }
-
                 for (String x : del) {
 
                     Log.i("cd........", x);
@@ -311,7 +302,7 @@ ArrayList<String> list = new ArrayList<>();
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         book  select = dataSnapshot.getValue(book.class);
 
-                        list.add( select.getTitle() + " by " + select.getAuthor() + "       Price : "+ select.getPrice().toString() );
+                        list.add( select.getTitle() + "Price : "+ select.getPrice().toString() );
                         totalPrice.add(select.getPrice());
                         adapter.notifyDataSetChanged();
                     }

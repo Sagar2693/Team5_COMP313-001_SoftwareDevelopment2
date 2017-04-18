@@ -14,8 +14,14 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.firebase.bookstore.contact_us_activity">
+    tools:context="com.example.firebase.bookstore.contact_us_activity"
+    android:background="#e65045">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/contact_us"
+        android:id="@+id/imageView5" />
 </RelativeLayout>
 
     <android.support.design.widget.NavigationView

@@ -8,7 +8,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:layout_margin="5dp"
+    android:padding="10dp">
 
 
     <TextView
@@ -43,21 +45,6 @@
         android:layout_marginTop="16dp"
         android:id="@+id/txt_category"
         android:textStyle="normal|italic" />
-
-    <Button
-        android:id="@+id/btn_addtocart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:text="Add To Cart"
-        android:drawableLeft="@drawable/ic_add_shopping_cart_black_24dp"
-        android:background="@color/common_google_signin_btn_text_dark_disabled"
-        android:elegantTextHeight="true"
-        android:elevation="12dp"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/ratingBar_1"
-        android:layout_marginEnd="10dp" />
 
     <ImageView
         android:id="@+id/imgView_book"
@@ -117,6 +104,25 @@
         android:layout_below="@+id/imgView_book"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="164dp" />
+
+    <Button
+        android:id="@+id/btn_addtocart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="23dp"
+        android:text="Add To Cart"
+        android:drawableStart="@drawable/ic_add_shopping_cart_black_24dp"
+        android:background="?attr/actionModeSplitBackground"
+        android:elegantTextHeight="true"
+        android:elevation="24dp"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:contextClickable="true"
+        style="@style/Widget.AppCompat.Button"
+        android:textAllCaps="true"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
