@@ -69,20 +69,17 @@ public class description_book extends AppCompatActivity {
         View header = navigationView.getHeaderView(0);
         username=(TextView)header.findViewById(R.id.txt_UserName);
         email_nav=(TextView)header.findViewById(R.id.txt_email_nav);
+        userAuth = FirebaseAuth.getInstance();
+        UserId = userAuth.getCurrentUser().getUid();
 
-        ValueEventListener valueEventListener = cartRef.orderByChild("user3").addValueEventListener(new ValueEventListener() {
+        ValueEventListener valueEventListener = cartRef.orderByChild(UserId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if(dataSnapshot.hasChild("user3"))
+                if(dataSnapshot.hasChild(UserId))
                 {
                     //cartRef.child("user3").setValue(bookID);
-                    cartItem = dataSnapshot.child("user3").getValue().toString();
-                }
-
-                else
-                {
-                    Toast.makeText(description_book.this,"No item in Cart",Toast.LENGTH_LONG).show();
+                    cartItem = dataSnapshot.child(UserId).getValue().toString();
                 }
 
             }
@@ -96,9 +93,9 @@ public class description_book extends AppCompatActivity {
 
         });
         //passing the values to navigation header
-        userAuth = FirebaseAuth.getInstance();
 
-        UserId = userAuth.getCurrentUser().getUid();
+
+
 
         userRef =myRootRef.child("Users").child(UserId);
 
@@ -215,11 +212,13 @@ public class description_book extends AppCompatActivity {
 
                         }*/
                         numOfChild = dataSnapshot.getChildrenCount();
-                        cartRef.child(UserId).child(bookID.toString()).setValue(selectedBook.getTitle());
+                        cartRef.child(UserId).child(bookID).setValue(selectedBook.getTitle());
 
                         /*else {
                             cartItem = dataSnapshot.child("user3").getValue().toString();
                         }*/
+
+
 
                         Toast.makeText(description_book.this, "Book Added to the cart", Toast.LENGTH_SHORT).show();
 

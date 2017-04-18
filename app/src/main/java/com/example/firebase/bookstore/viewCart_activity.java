@@ -9,10 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -39,6 +36,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -57,6 +55,7 @@ public class viewCart_activity extends AppCompatActivity {
    static String[] separeted;
     TextView username;
     TextView email_nav;
+    TextView t_price;
     String UserId;
     DatabaseReference userRef ;
 
@@ -68,11 +67,11 @@ ArrayList<String> list = new ArrayList<>();
     DrawerLayout mDrawerlayout;
     ActionBarDrawerToggle mToggle;
     NavigationView navigationView;
-    RecyclerView cart_rv;
+  //  RecyclerView cart_rv;
     Button checkout,delete;
     static  Double abc = 0.0;
     DatabaseReference myRootRef = FirebaseDatabase.getInstance().getReference();
-   public static String cartItem = "//" ;
+   public static String tp = "0" ;
 
   DatabaseReference selectedBookRef = myRootRef.child("Books");
 
@@ -85,20 +84,23 @@ ArrayList<String> list = new ArrayList<>();
         //Resources res = getResources();
 
         setContentView(R.layout.activity_view_cart_activity);
-            checkout = (Button)findViewById(R.id.checkout);
-        delete = (Button)findViewById(R.id.cart_delete);
-      //  t_price=(TextView)findViewById(R.id.totalprice);
+        checkout = (Button) findViewById(R.id.checkout);
+        delete = (Button) findViewById(R.id.cart_delete);
+        //  t_price=(TextView)findViewById(R.id.totalprice);
+
+        t_price = (TextView)findViewById(R.id.totalPrice);
 
 
-        navigationView =(NavigationView)findViewById(R.id.navgation_view);
+
+        navigationView = (NavigationView) findViewById(R.id.navgation_view);
         View header = navigationView.getHeaderView(0);
-        username=(TextView)header.findViewById(R.id.txt_UserName);
-        email_nav=(TextView)header.findViewById(R.id.txt_email_nav);
+        username = (TextView) header.findViewById(R.id.txt_UserName);
+        email_nav = (TextView) header.findViewById(R.id.txt_email_nav);
 
         //passing the values to navigation header
         userAuth = FirebaseAuth.getInstance();
         UserId = userAuth.getCurrentUser().getUid();
-        userRef =myRootRef.child("Users").child(UserId);
+        userRef = myRootRef.child("Users").child(UserId);
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -114,33 +116,40 @@ ArrayList<String> list = new ArrayList<>();
             }
         });
 
-        DatabaseReference cartRef = myRootRef.child("Cart").child(UserId); //("User5")
-        cartRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference cartRef = myRootRef.child("CART").child(UserId); //("User5")
+        cartRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Map<String,String> data = (Map<String, String>)dataSnapshot.getValue();
+                if (dataSnapshot.getKey().toString().equals(UserId)) {
+                    Log.i("Going In....", dataSnapshot.getKey().toString());
+                    //   Log.i("Value In....",dataSnapshot.getValue().toString());
 
-             //   cartItem = dataSnapshot.getValue().toString();
-                for(Map.Entry<String,String> entry : data.entrySet())
-                {
+                    Map<String, String> data = (Map<String, String>) dataSnapshot.getValue();
 
-                    ID.add(entry.getKey().toString());
-                    Log.i("KEY........" , entry.getKey());
-                    Log.i("VALUE........." , entry.getValue());
 
+                    for (Map.Entry<String, String> entry : data.entrySet()) {
+
+                        ID.add(entry.getKey());
+                        Log.i("KEY........", entry.getKey());
+                        Log.i("VALUE.........", entry.getValue());
+
+                    }
+                    for (String x : ID) {
+                        Log.i("ID.........", x);
+                    }
+                    //  Log.i("VALUE OF STRING IN KEY" , val);
+
+                    int i = displayCart(ID);
+                } else {
+                    Toast.makeText(viewCart_activity.this, "Cart Empty", Toast.LENGTH_LONG).show();
                 }
-                for(String x : ID)
-                {
-                    Log.i("ID........." , x);
-                }
-              //  Log.i("VALUE OF STRING IN KEY" , val);
-
-               int i = displayCart(ID);
 
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+
+                Log.i("ERRRRRRR...", UserId);
 
             }
         });
@@ -154,13 +163,13 @@ ArrayList<String> list = new ArrayList<>();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-       navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 switch (id) {
                     case R.id.nav_signOut:
-                         userAuth.signOut();
+                        userAuth.signOut();
                         break;
 
                     case R.id.nav_home:
@@ -185,30 +194,10 @@ ArrayList<String> list = new ArrayList<>();
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SparseBooleanArray selected = listview.getCheckedItemPositions();
 
 
-               for(int i= (selected.size()-1) ; i>=0 ;i--)
-                {
-
-                    if (selected.valueAt(i)) {
-                        Double temp = totalPrice.get(i);
-
-                        abc = abc + temp;
-                        //.append("\n" + String.valueOf(list.getItemAtPosition(i)));
-
-
-                     //   t_price.setText("Total Price $ " + abc.toString());
-
-
-                        //   Toast.makeText(viewCart_activity.this,"Total Price" + abc,Toast.LENGTH_LONG).show();
-                    }
-                }
-                Log.i("E", abc.toString());
-
-
-                Intent t = new Intent(viewCart_activity.this,payment.class);
-                t.putExtra("items_selected",abc);
+                Intent t = new Intent(viewCart_activity.this, payment.class);
+                t.putExtra("items_selected", tp);
                 startActivity(t);
             }
         });
@@ -220,26 +209,25 @@ ArrayList<String> list = new ArrayList<>();
                 int len = listview.getCount();
 
 
-                for(int i = 0; i < len; i++) {
+                for (int i = 0; i < len; i++) {
 
                     if (selected.get(i)) {
                         String temp = listview.getItemAtPosition(i).toString();
 
                         del.add(ID.get(i).toString());
 
-                        Log.i("TEMP.....",temp );
+                        Log.i("TEMP.....", temp);
 
 
                         //.append("\n" + String.valueOf(list.getItemAtPosition(i)));
                     }
                 }
 
-                for(String x : del)
-                {
+                for (String x : del) {
 
-                    Log.i("cd........",x);
+                    Log.i("cd........", x);
                 }
-              //DatabaseReference samref = myRootRef.child("SampleData").child("user5");
+                //DatabaseReference samref = myRootRef.child("SampleData").child("user5");
 
                /* Query applesQuery = cartRef.orderByChild("_id40");
 
@@ -257,19 +245,57 @@ ArrayList<String> list = new ArrayList<>();
                     }
                 });*/
 
-               // Log.i("REF..xxxxxxxx...",ref );
+                // Log.i("REF..xxxxxxxx...",ref );
                 finish();
                 startActivity(getIntent());
 
-                }
+            }
 
         });
 
-        listview=(ListView)findViewById(R.id.cart_listview);
-        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_checked,list);
+        listview = (ListView) findViewById(R.id.cart_listview);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, list);
         listview.setAdapter(adapter);
-    }
 
+
+
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterview, View view,
+                                    int position, long id) {
+
+                SparseBooleanArray selected = listview.getCheckedItemPositions();
+               // String s = ;
+                  abc = 0.0;
+                for (int i = (selected.size() - 1); i >= 0; i--) {
+
+                    if (selected.valueAt(i)) {
+                        Double temp = totalPrice.get(i);
+
+                        abc = abc + temp;
+
+
+
+                     tp = String.format("%.2f", abc);
+
+                        t_price.setText("Total Price : $ " +tp);
+
+
+                    }
+                }
+                Log.i("E", abc.toString());
+              //  t_price.setText( + s);
+
+
+
+            }
+        });
+
+
+
+
+    }
 
         //======================== Code start here =====================
 
@@ -282,7 +308,8 @@ ArrayList<String> list = new ArrayList<>();
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         book  select = dataSnapshot.getValue(book.class);
 
-                        list.add( select.getTitle() + " by " + select.getAuthor());
+                        list.add( select.getTitle() + " by " + select.getAuthor() + "       Price : "+ select.getPrice().toString() );
+                        totalPrice.add(select.getPrice());
                         adapter.notifyDataSetChanged();
                     }
 

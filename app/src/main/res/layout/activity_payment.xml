@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_payment"
     android:layout_width="match_parent"
@@ -8,6 +8,75 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.firebase.bookstore.payment">
+    tools:context="com.example.firebase.bookstore.payment"
+    android:orientation="vertical">
 
-</RelativeLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+
+        android:hint="Full Name"
+        android:ems="10"
+        android:id="@+id/cus_Name" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:ems="10"
+        android:hint="Postal Address"
+        android:id="@+id/cus_Address" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:hint="Contact Number"
+        android:ems="10"
+        android:id="@+id/cus_Phone" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/cus_Creditcard"
+        android:hint="Credit Card Number" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/cus_Expirydate"
+        android:hint="Expiry Date  : mmyy" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberPassword"
+        android:ems="3"
+        android:id="@+id/cus_Ccv"
+        android:hint="CCV"
+        android:singleLine="true" />
+
+    <TextView
+        android:text="Ordered Item : "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cus_price"
+        android:textSize="18sp" />
+
+    <Button
+        android:text="Pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cus_Pay"
+        android:layout_marginTop="20dp"
+        android:elevation="24dp"
+        android:textSize="18sp"
+        android:textStyle="normal|bold" />
+
+</LinearLayout>
